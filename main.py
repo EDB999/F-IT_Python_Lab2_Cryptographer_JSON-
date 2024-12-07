@@ -4,9 +4,9 @@ from cryptography.fernet import Fernet
 
 def write_key():
     # Создаем ключ и сохраняем его в файл
-    key = Fernet.generate_key()
+    crypto_key = Fernet.generate_key()
     with open('crypto.key', 'wb') as key_file:
-        key_file.write(key)
+        key_file.write(crypto_key)
 
 
 def load_key():
@@ -14,9 +14,9 @@ def load_key():
     return open('crypto.key', 'rb').read()
 
 
-def encrypt(filename, key):
+def encrypt(filename, key_enc):
     # Зашифруем файл и записываем его
-    f_enc = Fernet(key)
+    f_enc = Fernet(key_enc)
 
     with open(filename, 'rb') as file_enc:
         # прочитать все данные файла
@@ -29,9 +29,9 @@ def encrypt(filename, key):
         file_enc.write(encrypted_data)
 
 
-def decrypt(filename, key):
+def decrypt(filename, key_dec):
     # Расшифруем файл и записываем его
-    f_dec = Fernet(key)
+    f_dec = Fernet(key_dec)
 
     with open(filename, 'rb') as file_dec:
         # читать зашифрованные данные
